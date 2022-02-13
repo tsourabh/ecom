@@ -135,8 +135,11 @@ export function* updateProfile({payload:{currentUser, displayName, contact}}) {
       contact: contact
     }
 
-    const userRef = yield call(handleUpdateProfile, { user: currentUser, additionalData });
+    yield call(handleUpdateProfile, { user: currentUser, additionalData });
+    
+    const userRef = yield call(handleUserProfile, { userAuth: user, additionalData });
     const snapshot = yield userRef.get();
+
     yield put(
       updateProfileSuccess({
         id: snapshot.id,
